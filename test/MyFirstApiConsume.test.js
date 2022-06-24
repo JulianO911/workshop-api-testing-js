@@ -23,44 +23,39 @@ describe('First Api Tests', () => {
         expect(response.config.query).to.eql(query);
       });
 
-      it('Consume HEAD Service', async () => {
+      it('Success test from head request', async () => {
     
         const response = await axios.head('https://httpbin.org/get');
         expect(response.status).to.equal(200);
       });
 
-      it('Consume PATCH Service', async () => {
-        const query = {
-            names: ['Julian','Jaime','Ana'],
-          };
-        const response = await axios.patch('https://httpbin.org/patch', query);
-        expect(response.data['json']).to.have.property('names');
-        expect(response.data['json']['names'],'No es de tipo arreglo').to.be.an('array');
+      it('Attributes and type test from patch request', async () => {
+        const response = await axios.patch('https://httpbin.org/patch',{
+          names: ['Julian','Jaime','Ana'],
+        });
+        expect(JSON.parse(response.data.data)).to.have.property("names");
+        expect(JSON.parse(response.data.data)['names']).to.be.an('array');
       });
 
-      it('Consume PUT Service', async () => {
-        const query = {
-            name: 'Julian',
-          };
-        const response = await axios.put('https://httpbin.org/put', query);
-        expect(response.data['json']).to.have.property('name');
-        expect(response.data['json']['name']).to.eql('Julian');
+      it('Attributes and value test from put request', async () => {
+        const response = await axios.put('https://httpbin.org/put', {
+          name: 'Julian',
+        });
+        expect(JSON.parse(response.data.data)).to.have.property('name');
+        expect(JSON.parse(response.data.data)['name']).to.eql('Julian');
       });
 
-      it('Consume DELETE Service', async () => {
-        const query = {
-            relationship: {
-                names: ['Julian','Ana'],
-                status: 'friends',
-            }
-            };
+      it('Relationship attributes and type test from delete request', async () => {
     
-        const response = await axios.delete('https://httpbin.org/delete',{data: query});
+        const response = await axios.delete('https://httpbin.org/delete',{ data: {
+          relationship: {
+            names: ['Julian','Ana'],
+            status: 'friends',
+          }
+        }});
         expect(response.status).to.equal(200);
-        expect(response.data['json']).to.have.property('relationship');
-        expect(response.data['json']['relationship']).to.have.property('names');
-        expect(response.data['json']['relationship']).to.have.property('status');
-        expect(response.data['json']['relationship']['names']).to.be.an('array');
-        expect(response.data['json']['relationship']['status']).to.be.an('string');
+        expect(JSON.parse(response.data.data)['relationship']).to.have.all.keys('names', 'status');
+        expect(JSON.parse(response.data.data)['relationship']['names']).to.be.an('array');
+        expect(JSON.parse(response.data.data)['relationship']['status']).to.be.an('string');
       });
 });
