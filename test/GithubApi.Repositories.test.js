@@ -1,4 +1,9 @@
 const { expect } = require('chai');
+const chaiSubset = require('chai-subset');
+const chai = require('chai');
+const md5File = require('md5-file');
+// eslint-disable-next-line no-undef
+chai.use(chaiSubset);
 const axios = require('axios');
 /* License: MIT
 */
@@ -45,7 +50,24 @@ describe('Github Api Test 2', () => {
       const responseRepo = await axios.get(response.data.repos_url);
       const repository = Array.from(responseRepo.data).find((repo) => repo.name === 'jasmine-json-report');
       const filesURL = repository.contents_url.replace('{+path}', '');
-      console.log(filesURL);
+      const responseFiles = await axios.get(filesURL);
+      const readme = Array.from(responseFiles.data).find((file) => file.name === 'README.md');
+      expect(readme).to.containSubset({
+        name: 'README.md', path: 'README.md', sha: '360eee6c223cee31e2a59632a2bb9e710a52cdc0'
+      });
+    });
+    it('MD5 test', async () => {
+      const response = await axios.get('https://api.github.com/users/aperdomob');
+      const responseRepo = await axios.get(response.data.repos_url);
+      const repository = Array.from(responseRepo.data).find((repo) => repo.name === 'jasmine-json-report');
+      const filesURL = repository.contents_url.replace('{+path}', '');
+      const responseFiles = await axios.get(filesURL);
+      const readme = Array.from(responseFiles.data).find((file) => file.name === 'README.md');
+      const dest = './README.md';
+      download(readme.download_url, dest, () => {
+      });
+      const hash = md5File.sync('./README.md');
+      expect(hash).to.eql('497eb689648cbbda472b16baaee45731');
     });
   });
 });
