@@ -34,6 +34,8 @@
   },
   "dependencies": {
     "axios": "^0.27.2",
+    "js-file-download": "^0.4.12",
+    "md5": "^2.3.0",
     "md5-file": "^5.0.0"
   }
 }
