@@ -1,4 +1,5 @@
 // Libararies
+const { StatusCodes } = require('http-status-codes');
 const { expect } = require('chai');
 const chaiSubset = require('chai-subset');
 const chai = require('chai');
@@ -17,6 +18,14 @@ describe('Github Api Test', () => {
           Authorization: `token ${process.env.ACCESS_TOKEN}`
         }
       });
+      expect(response.status).to.equal(StatusCodes.OK);
+    });
+    it('Via OAuth2 Tokens by parameter', async () => {
+      const response = await axios.get(
+        'https://api.github.com/users/aperdomob',
+        { access_token: process.env.ACCESS_TOKEN }
+      );
+      expect(response.status).to.equal(StatusCodes.OK);
     });
   });
 });
