@@ -43,7 +43,7 @@ describe('Github Api Test 2', () => {
       // download the repository with axios get method
       const downloadRepo = await axios.get(`${repository.svn_url}/archive/${repository.default_branch}.zip`);
       expect(downloadRepo.headers['content-type']).to.eql('application/zip');
-      expect(repository.visibility).to.eql('private');
+      expect(repository.visibility).to.eql('public');
     });
     /* Test used for get the README from the contents' repository and check
      it name, path and sha attributes */
