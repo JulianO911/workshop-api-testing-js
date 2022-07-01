@@ -1,7 +1,5 @@
 // Libraries
 const { expect } = require('chai');
-const chaiSubset = require('chai-subset');
-const chai = require('chai');
 const axios = require('axios');
 
 /* Instance from the axios class that has headers attribute
@@ -20,6 +18,7 @@ describe('Github Api Test 3', () => {
     it('PUT method', async () => {
       const response = await object.put('https://api.github.com/user/following/aperdomob');
       expect(response.status).to.equal(204);
+      // eslint-disable-next-line no-unused-expressions
       expect(response.data).to.be.empty;
     });
     /* Test used to verify in the list of people that i follow if
