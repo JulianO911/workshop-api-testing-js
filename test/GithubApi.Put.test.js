@@ -18,8 +18,7 @@ describe('Github Api Test 3', () => {
     it('PUT method', async () => {
       const response = await object.put('https://api.github.com/user/following/aperdomob');
       expect(response.status).to.equal(204);
-      // eslint-disable-next-line no-unused-expressions
-      expect(response.data).to.be.empty;
+      expect(response.data).to.equal('');
     });
     /* Test used to verify in the list of people that i follow if
     aperdomob is in */
