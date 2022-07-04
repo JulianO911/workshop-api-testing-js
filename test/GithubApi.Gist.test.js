@@ -35,7 +35,8 @@ describe('Github Api Test 5', () => {
       const gistID = gists.data.find((actualGist) => actualGist.description === 'this is a example about promises').id;
       const gistDelete = await object.delete(`https://api.github.com/gists/${gistID}`);
       expect(gistDelete.status).to.equal(204);
-      expect(await object.get('https://api.github.com/gists').data).to.equal(undefined);
+      const newGists = await object.get('https://api.github.com/gists');
+      expect(newGists.data.find((actualGist) => actualGist.description === 'this is a example about promises')).to.equal(undefined);
     });
   });
 });
