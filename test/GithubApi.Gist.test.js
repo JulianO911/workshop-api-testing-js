@@ -27,7 +27,7 @@ describe('Github Api Test 5', () => {
       expect(gist.data.find((actualGist) => actualGist.description === 'this is a example about promises')).to.not.equal(undefined);
     });
     /* test that deletes the gist with the delete method and checks the
-    response status code and if in fact the Gist doesn't exist */
+    response status code and if in fact the gist doesn't exist */
     it('Deleting gist test', async () => {
       // eslint-disable-next-line no-unused-vars
       const gists = await object.get('https://api.github.com/gists');
