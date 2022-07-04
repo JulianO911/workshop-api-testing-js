@@ -21,7 +21,7 @@ describe('Github Api Test 5', () => {
       expect(gist.status).to.equal(201);
       expect(gist.data).to.containSubset({ description: 'this is a example about promises', public: true, files: { 'README.md': { content: 'this is a example about promises' } } });
     });
-    // test that access to the gist and verifies if the gist inf fact was created 
+    // test that access to the gist and verifies if the gist inf fact was created
     it('Gist existence test', async () => {
       const gist = await object.get('https://api.github.com/gists');
       expect(gist.data.find((actualGist) => actualGist.description === 'this is a example about promises')).to.not.equal(undefined);
