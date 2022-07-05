@@ -26,6 +26,7 @@ describe('Github Api Test 6', () => {
     it('GET redirection test', async () => {
       const response = await object.get('https://github.com/aperdomob/redirect-test');
       expect(response.data).to.contains('href="https://github.com/aperdomob/new-redirect-test"');
+      expect(response.request.path).to.equal('/aperdomob/new-redirect-test');
     }).timeout(10000000);
   });
 });
