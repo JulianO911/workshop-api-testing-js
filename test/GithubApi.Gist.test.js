@@ -12,7 +12,15 @@ const object = axios.create({
   }
 });
 
-const body = { description: 'this is a example about promises', public: true, files: { 'README.md': { content: 'this is a example about promises' } } };
+const body = {
+  description: 'this is a example about promises',
+  public: true,
+  files: {
+    'README.md': {
+      content: 'this is a example about promises'
+    }
+  }
+};
 
 describe('Github Api Test 5', () => {
   describe('testing DELETE method', async () => {
@@ -26,7 +34,11 @@ describe('Github Api Test 5', () => {
     // test that access to the gist and verifies if the gist inf fact was created
     it('Gist existence test', async () => {
       const gist = await object.get('https://api.github.com/gists');
-      expect(gist.data.find((actualGist) => actualGist.description === 'this is a example about promises')).to.not.equal(undefined);
+      expect(
+        gist.data.find(
+          (actualGist) => actualGist.description === 'this is a example about promises'
+        )
+      ).to.not.equal(undefined);
     });
     /* test that deletes the gist with the delete method and checks the
     response status code and if in fact the gist doesn't exist */
@@ -38,7 +50,11 @@ describe('Github Api Test 5', () => {
       const gistDelete = await object.delete(`https://api.github.com/gists/${gistID}`);
       expect(gistDelete.status).to.equal(204);
       const newGists = await object.get('https://api.github.com/gists');
-      expect(newGists.data.find((actualGist) => actualGist.description === 'this is a example about promises')).to.equal(undefined);
+      expect(
+        newGists.data.find(
+          (actualGist) => actualGist.description === 'this is a example about promises'
+        )
+      ).to.equal(undefined);
     });
   });
 });
