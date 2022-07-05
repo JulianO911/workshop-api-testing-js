@@ -7,7 +7,15 @@ chai.use(chaiSubset);
 /* Instances from the axios class that has headers attribute
  to do the authentication */
 const url = 'https://api.github.com/gists';
-const body = { description: 'this is a example about promises', public: true, files: { 'README.md': { content: 'this is a example about promises' } } };
+const body = {
+  description: 'this is a example about promises',
+  public: true,
+  files: {
+    'README.md': {
+      content: 'this is a example about promises'
+    }
+  }
+};
 describe('Github Api Test with isomorphic fetch', () => {
   describe('testing DELETE method', () => {
     /* test that creates a new gist with post method and checks the
@@ -33,7 +41,11 @@ describe('Github Api Test with isomorphic fetch', () => {
         }
       });
       const data = await response.json();
-      expect(data.find((gist) => gist.description === 'this is a example about promises')).to.not.equal(undefined);
+      expect(
+        data.find(
+          (actualGist) => actualGist.description === 'this is a example about promises'
+        )
+      ).to.not.equal(undefined);
     });
     /* test that deletes the gist with the delete method and checks the
     response status code and if in fact the gist doesn't exist */
@@ -60,7 +72,11 @@ describe('Github Api Test with isomorphic fetch', () => {
         }
       });
       const newData = await newResponse.json();
-      expect(newData.find((gist) => gist.description === 'this is a example about promises')).to.equal(undefined);
+      expect(
+        newData.find(
+          (actualGist) => actualGist.description === 'this is a example about promises'
+        )
+      ).to.equal(undefined);
     });
   });
 });
