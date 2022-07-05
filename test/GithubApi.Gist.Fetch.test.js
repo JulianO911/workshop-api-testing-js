@@ -7,6 +7,7 @@ chai.use(chaiSubset);
 /* Instances from the axios class that has headers attribute
  to do the authentication */
 const url = 'https://api.github.com/gists';
+const body = { description: 'this is a example about promises', public: true, files: { 'README.md': { content: 'this is a example about promises' } } };
 describe('Github Api Test with isomorphic fetch', () => {
   describe('testing DELETE method', () => {
     /* test that creates a new gist with post method and checks the
@@ -17,11 +18,11 @@ describe('Github Api Test with isomorphic fetch', () => {
         headers: {
           Authorization: `token ${process.env.ACCESS_TOKEN}`
         },
-        body: JSON.stringify({ description: 'this is a example about promises', public: true, files: { 'README.md': { content: 'this is a example about promises' } } })
+        body: JSON.stringify(body)
       });
       const data = await response.json();
       expect(response.status).to.equal(201);
-      expect(data).to.containSubset({ description: 'this is a example about promises', public: true, files: { 'README.md': { content: 'this is a example about promises' } } });
+      expect(data).to.containSubset(body);
     });
     // test that access to the gist and verifies if the gist inf fact was created
     it('Gist existence test', async () => {
