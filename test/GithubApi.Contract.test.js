@@ -18,7 +18,7 @@ describe('Given event Github API resources', () => {
       });
     });
 
-    it('then the body should have a schema', () => {
+    it('Then the body should have a schema', () => {
       expect(response).to.be.jsonSchema(listPublicEventsSchema);
     });
   });
