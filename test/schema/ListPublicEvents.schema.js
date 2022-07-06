@@ -61,8 +61,8 @@ const PRSchema = {
 const eventsSchema = {
   type: 'object',
   properties: {
-    status: { type: 'integer' },
-    data: {
+    status: { type: 'number' },
+    body: {
       type: 'array',
       items: {
         type: 'object',
